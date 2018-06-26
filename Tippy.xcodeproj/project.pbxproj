@@ -15,6 +15,7 @@
 		53B833AE20E2D51700CE0638 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B833AD20E2D51700CE0638 /* main.m */; };
 		53B833B820E2D51800CE0638 /* TippyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B833B720E2D51800CE0638 /* TippyTests.m */; };
 		53B833C320E2D51800CE0638 /* TippyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B833C220E2D51800CE0638 /* TippyUITests.m */; };
+		53B833DC20E2E87300CE0638 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B833DB20E2E87300CE0638 /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		53B833BE20E2D51800CE0638 /* TippyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TippyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53B833C220E2D51800CE0638 /* TippyUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TippyUITests.m; sourceTree = "<group>"; };
 		53B833C420E2D51800CE0638 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53B833DA20E2E87300CE0638 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		53B833DB20E2E87300CE0638 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,8 @@
 				53B833A920E2D51700CE0638 /* LaunchScreen.storyboard */,
 				53B833AC20E2D51700CE0638 /* Info.plist */,
 				53B833AD20E2D51700CE0638 /* main.m */,
+				53B833DA20E2E87300CE0638 /* SettingsViewController.h */,
+				53B833DB20E2E87300CE0638 /* SettingsViewController.m */,
 			);
 			path = Tippy;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				53B833A320E2D51600CE0638 /* ViewController.m in Sources */,
 				53B833AE20E2D51700CE0638 /* main.m in Sources */,
 				53B833A020E2D51600CE0638 /* AppDelegate.m in Sources */,
+				53B833DC20E2E87300CE0638 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +440,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J73QEJBHCK;
 				INFOPLIST_FILE = Tippy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -450,6 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J73QEJBHCK;
 				INFOPLIST_FILE = Tippy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
