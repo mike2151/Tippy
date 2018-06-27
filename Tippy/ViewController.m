@@ -26,27 +26,25 @@
 
 double billTotalGlobal = 0;
 
+static int const EditingOffset = 50;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
     //change segmented control text color
     [[UISegmentedControl appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateNormal];
-    
     [[UISegmentedControl appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    //load the last used bill
     double past_bill = [defaults doubleForKey:@"last_bill"];
     NSArray *percentages = @[@(0.15), @(0.2), @(0.22)];
     if (past_bill != 0) {
         double tipPercentage = [percentages[self.tipControl.selectedSegmentIndex] doubleValue];
-        
         double tip = tipPercentage * past_bill;
         double total = past_bill + tip;
         billTotalGlobal = total;
-        
-        
         self.tipLabel.text = [NSString stringWithFormat:@"$%.2f", tip];
         self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", total];
         
@@ -62,11 +60,6 @@ double billTotalGlobal = 0;
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -75,28 +68,22 @@ double billTotalGlobal = 0;
     double index = [defaults doubleForKey:@"default_tip"];
     
     _tipControl.selectedSegmentIndex = index;
-    
-    
-    
-
-    
 }
 
 - (IBAction)onTap:(id)sender {
     [self.view endEditing:YES];
 }
 
+//when the segmented controler changes
 - (IBAction)onEdit:(id)sender {
+    //current bill value
     double bill = [self.billField.text doubleValue];
     
     //prevents multiple decimal places 
     NSArray  *arrayOfString = [self.billField.text componentsSeparatedByString:@"."];
-    
     if ([arrayOfString count] > 2 ) {
         self.billField.text = [NSString stringWithFormat:@"%.2f", bill];
     }
-    
-    
     
     NSArray *percentages = @[@(0.15), @(0.2), @(0.22)];
     
@@ -119,54 +106,51 @@ double billTotalGlobal = 0;
     
     self.pricePerPersonLabel.text = [NSString stringWithFormat:@"$%.2f", perPersonCost];
     
-    
 }
 
+//when slider changes, change how the bill will be split
 - (IBAction)sliderChanged:(id)sender {
     int currValue = (int) self.slider.value;
     self.peopleLabel.text = [NSString stringWithFormat:@"%d People", currValue];
     
     double perPersonCost = billTotalGlobal / ((double) currValue);
-    
     self.pricePerPersonLabel.text = [NSString stringWithFormat:@"$%.2f", perPersonCost];
-    
+}
+
+//function that changes the alpha of the remaining elements on the screen
+-(void)changeAlpha:(double)alpha {
+    self.tipLabel.alpha = alpha;
+    self.totalLabel.alpha = alpha;
+    self.tipControl.alpha = alpha;
+    self.totalLabelText.alpha = alpha;
+    self.tipLabelText.alpha = alpha;
+    self.slider.alpha = alpha;
+    self.peopleLabel.alpha = alpha;
+    self.perPersonLabel.alpha = alpha;
+    self.pricePerPersonLabel.alpha = alpha;
 }
 
 
-//animation functions
+//animation function for editing the bill field
 - (IBAction)onEditingBegin:(id)sender {
     
     
     [UIView animateWithDuration:0.2 animations:^{
         //put the bill entry at the center of the screen
-        self.billField.frame = CGRectMake(self.billField.frame.origin.x, ([UIScreen mainScreen].bounds.size.width / 2) + 50, self.billField.frame.size.width, self.billField.frame.size.height);
-        self.tipLabel.alpha = 0;
-        self.totalLabel.alpha = 0;
-        self.tipControl.alpha = 0;
-        self.totalLabelText.alpha = 0;
-        self.tipLabelText.alpha = 0;
-        self.slider.alpha = 0;
-        self.peopleLabel.alpha = 0;
-        self.perPersonLabel.alpha = 0;
-        self.pricePerPersonLabel.alpha = 0;
+        self.billField.frame = CGRectMake(self.billField.frame.origin.x, ([UIScreen mainScreen].bounds.size.width / 2) + EditingOffset, self.billField.frame.size.width, self.billField.frame.size.height);
+        [self changeAlpha:0];
     }];
     
     }
+
+//animation function for exiting editing the bill field
 - (IBAction)onEditingEnd:(id)sender {
     CGRect newFrame = self.billField.frame;
-    newFrame.origin.y = 50;
+    newFrame.origin.y = EditingOffset;
     
     [UIView animateWithDuration:0.2 animations:^{
         self.billField.frame = newFrame;
-        self.tipLabel.alpha = 1;
-        self.totalLabel.alpha = 1;
-        self.tipControl.alpha = 1;
-        self.totalLabelText.alpha = 1;
-        self.tipLabelText.alpha = 1;
-        self.slider.alpha = 1;
-        self.peopleLabel.alpha = 1;
-        self.perPersonLabel.alpha = 1;
-        self.pricePerPersonLabel.alpha = 1;
+        [self changeAlpha:1];
     }];
     
 }
